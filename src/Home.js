@@ -6,11 +6,14 @@ const Home = () => {
     const [prediction, setPrediction] = useState("")
     const [buttonDisable, setButtonDisable] = useState(false);
     const [buttonText, setButtonText] = useState("Evaluate")
+    const [predictionText, setPredictionText] = useState("Enter values to see the prediction")
     
     const HandleSubmit = (event) =>{
         event.preventDefault();
         setButtonDisable(true);
         setButtonText("Evaluating...");
+        setPredictionText("Calculating prediction...")
+        setPrediction("")
         console.log("making post request");
         fetch('https://4w801pm2t0.execute-api.us-east-1.amazonaws.com/prod/', {
             method: 'POST',
@@ -35,6 +38,7 @@ const Home = () => {
             // re-enable submit button
             setButtonDisable(false);
             setButtonText('Evaluate');
+            setPredictionText("Volatility prediction in percentage(%) is: ")
           }).then(() => {
             console.log('POST request success');
           })
@@ -51,7 +55,7 @@ const Home = () => {
                 <input type="text" required = {true} value={inputData} onChange={(e)=>{setInputData(e.target.value)}}/>
                 <button type="submit" disabled={buttonDisable}>{buttonText}</button>
             </form>
-            <h4>Prediction is: {prediction}% volatility</h4>
+            <h4>{predictionText} {prediction}</h4>
         </div>
 
      );

@@ -1,14 +1,34 @@
 import Navbar from './Navbar';
 import Home from './Home';
+import Entrance from './Entrance';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import About from './abtSoftware';
+import Motivation from './Motivation';
+
 function App() {
 
   return (
-    <div className="App">
-      <Navbar/>
-      <div className="content">
-        <Home/>
+    <Router>
+      <div className="App">
+        <Navbar/>
+        <div className="content">
+          <Switch>
+            <Route exact path='/'>
+              <Entrance/>
+            </Route>
+            <Route path='/predictor'>
+              <Home/>
+            </Route>
+            <Route path="/motivation">
+              <Motivation/>
+            </Route>
+            <Route path="/about">
+              <About/>
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
