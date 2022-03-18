@@ -8,7 +8,8 @@ const About = () => {
         <p>The software is designed to accept the data from last 14 days when the market was open. So, it is recommended to 
             input the data of the last 14 days. If the length of the data is higher than 14, then last 14 days (last 14 values) 
             will be used. If the length of input data is lower than 14, then initial missing values will be filled with the mean
-            daily return of {"S&P500"} index which is 0.02978%
+            daily return of {"S&P500"} index which is 0.02978%. The visualization will be shown as a line plot of previous volatility 
+            and predicted volatility (the last data point in the line plot) 
         </p>
     </div> );
 }
