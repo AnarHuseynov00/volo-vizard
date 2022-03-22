@@ -4,6 +4,7 @@ import Entrance from './Entrance';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import About from './abtSoftware';
 import Motivation from './Motivation';
+import Author from './Author';
 
 function App() {
 
@@ -21,6 +22,9 @@ function App() {
             </Route>
             <Route path="/motivation">
               <Motivation/>
+            </Route>
+            <Route path="/author">
+              <Author/>
             </Route>
             <Route path="/about">
               <About/>

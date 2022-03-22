@@ -1,4 +1,9 @@
+import DocViewer, {PDFRenderer} from "react-doc-viewer";
+
 const Motivation = () => {
+
+    const docs = [{ uri: require("./documents/report.pdf") }];
+
     return ( 
     <div>
         <h2> Motivation for the project</h2>
@@ -16,9 +21,11 @@ const Motivation = () => {
         model is trained and tested using the return data of the {"S&P500"} index from 1967 to 2022. The input is the return data 
         of previous 14 work days and output is the prediction for the volatility in the next day.
         </p>
+        <DocViewer 
+        pluginRenderers={[PDFRenderer]}
+        documents={docs}/>
 
-        <p>MORE DETAILS ABOUT THE PROJECT (TECHNICAL REPORT) will be added later</p>
-    </div> );
+    </div>);
 }
  
 export default Motivation;

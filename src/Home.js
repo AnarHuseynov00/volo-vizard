@@ -12,6 +12,8 @@ const Home = () => {
     const [buttonText, setButtonText] = useState("Evaluate")
     const [predictionText, setPredictionText] = useState("Enter values to see the prediction")
     const [chartData, setChartData] = useState([])
+    const [predColor, setPredColor] = useState("black")
+    const [predMessage, setPredMessage] = useState("")
 
     const convertToNum = (val, index) =>{
         let num_val = Number(val);
@@ -24,6 +26,8 @@ const Home = () => {
         setButtonText("Evaluating...");
         setPredictionText("Calculating prediction...")
         setPrediction(null)
+        setPredColor("black")
+        setPredMessage("")
         console.log("making post request");
         fetch('https://4w801pm2t0.execute-api.us-east-1.amazonaws.com/prod/', {
             method: 'POST',
@@ -47,11 +51,26 @@ const Home = () => {
               let strNums = inputData.split(",");
               let vol_numbers = strNums.map(convertToNum)
               let cdata = [{
+                id:1,
+                name: "Predicted trajectory", 
+                color:"red", 
+                points:[{x:vol_numbers.length-1, y:vol_numbers[vol_numbers.length-1].y},
+              {x:vol_numbers.length, y:num_return}]},{
+                id:2,
+                name: "Previous return values",
                 color: "steelblue", 
                 points: vol_numbers
               }]
-              cdata[0].points.push({x: cdata[0].points.length, y: num_return})
+              //cdata[0].points.push({x: cdata[0].points.length, y: num_return})
               setChartData(cdata)
+              if(num_return > 2){
+                setPredColor("red")
+                setPredMessage("High Volatility Expected")
+              }
+              else{
+                setPredColor("green")
+                setPredMessage("Low Volatility Expected")
+              }
             }
       
             // re-enable submit button
@@ -62,8 +81,6 @@ const Home = () => {
             console.log('POST request success');
           })
     }
-
-
     return ( 
         <div className="create">
             <h1>
@@ -71,14 +88,16 @@ const Home = () => {
             </h1>
             <form onSubmit={HandleSubmit} style={{paddingTop:20, paddingBottom:40}}>
                 <label>Enter your return values:</label>
-                <input type="text" required = {true} value={inputData} onChange={(e)=>{setInputData(e.target.value)}}/>
+                <input placeholder={"Enter return values"} type="text" required = {true} value={inputData} onChange={(e)=>{setInputData(e.target.value)}}/>
                 <Button type="submit" disabled={buttonDisable}>{buttonText}</Button>
             </form>
-            <h4 style={{paddingBottom:10}}>{predictionText} {prediction}</h4>
-            <p style={{paddingBottom:15}}>Line Graph. Prediction is the last value</p>
+            <h4 style={{paddingBottom:10}}>{predictionText} {<h4 style={{color:predColor}}>{prediction}</h4>}</h4>
+            <h4 style={{paddingBottom:10, color:predColor}}>{predMessage}</h4>
             <LineChart 
                     xLabel = {'time frame'}
                     yLabel = {'volatility in %'}
+                    showLegends = {true}
+                    interpolate="false"
                         width={500}
                         height={400}
                         data={chartData}

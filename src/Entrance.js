@@ -21,7 +21,7 @@ const Entrance = () => {
                  in the {<Link to="/about">Documentation</Link>} page</p>
             <p>
                 The software is developed 
-                by {<a href="https://www.linkedin.com/in/anar-huseynov-78b585151/">{"Anar Huseynov"}</a>}, a graduate 
+                by {<a href="https://www.linkedin.com/in/anar-huseynov-78b585151/">{"Anar Huseynov"}</a>} (Check the {<Link to="/author">Author</Link>} page), a graduate 
                 student at the University of Michigan and also, an incoming
                 Machine Learning Operations engineer at the Ford Motor Company. 
             </p>
