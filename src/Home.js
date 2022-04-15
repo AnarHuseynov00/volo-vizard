@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from '@mui/material/Button';
+import { Divider } from '@mui/material';
 import LineChart from 'react-linechart';
 import '../node_modules/react-linechart/dist/styles.css';
 
@@ -140,18 +141,23 @@ const Home = () => {
             <h1>
                 {title}
             </h1>
-            <Button onClick={HandleSubmitDemo} disabled={demoButtonDisable} style={{marginTop:20}}>demo</Button>
+            <p>Click the Demo button to make a demonstration of how pedictor works. Check Documentation page for the details of how it works</p>
+            <Button onClick={HandleSubmitDemo} disabled={demoButtonDisable} variant="contained" 
+            style={{marginTop:20, marginBottom:20}}>
+              demo
+              </Button>
+              <Divider>Volo-Wizard</Divider>
             <form onSubmit={HandleSubmit} style={{paddingTop:20, paddingBottom:40}}>
                 <label>Enter your return values:</label>
                 <input placeholder={"Enter return values"} type="text" required = {true} value={inputData} onChange={(e)=>{setInputData(e.target.value)}}/>
         
-                <Button type="submit" disabled={buttonDisable}>{buttonText}</Button>
+                <Button type="submit" disabled={buttonDisable} variant="contained">{buttonText}</Button>
             </form>
             <h4 style={{paddingBottom:10}}>{predictionText} {<h4 style={{color:predColor}}>{prediction}</h4>}</h4>
             <h4 style={{paddingBottom:10, color:predColor}}>{predMessage}</h4>
             <LineChart 
-                    xLabel = {'time frame'}
-                    yLabel = {'volatility in %'}
+                    xLabel = {'Time'}
+                    yLabel = {'Volatility(%)'}
                     showLegends = {true}
                     interpolate="false"
                         width={500}
